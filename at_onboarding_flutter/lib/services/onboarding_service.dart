@@ -11,6 +11,7 @@ class OnboardingService {
   static final OnboardingService _singleton = OnboardingService._internal();
 
   OnboardingService._internal();
+
   factory OnboardingService.getInstance() {
     return _singleton;
   }
@@ -30,6 +31,7 @@ class OnboardingService {
   ServerStatus? serverStatus;
 
   set setLogo(Widget? logo) => _applogo = logo;
+
   Widget? get logo => _applogo;
 
   bool? get isPkam => _isPkam;
@@ -43,7 +45,9 @@ class OnboardingService {
   AtClientPreference get atClientPreference => _atClientPreference;
 
   set namespace(String namespace) => _namespace = namespace;
+
   String? get appNamespace => _namespace;
+
   set setAtsign(String? atsign) {
     atsign = formatAtSign(atsign);
     _atsign = atsign;
@@ -53,6 +57,7 @@ class OnboardingService {
 
   // next route set from using app
   Widget? _nextScreen;
+
   set setNextScreen(Widget? nextScreen) {
     _nextScreen = nextScreen;
   }
@@ -86,8 +91,7 @@ class OnboardingService {
 
   ///Returns `false` if fails in authenticating [atsign] with [cramSecret]/[privateKey].
   ///Throws Excpetion if atsign is null.
-  Future<dynamic> authenticate(String? atsign,
-      {String? cramSecret, String? jsonData, String? decryptKey, OnboardingStatus? status}) async {
+  Future<dynamic> authenticate(String? atsign, {String? cramSecret, String? jsonData, String? decryptKey, OnboardingStatus? status}) async {
     _isPkam = false;
     atsign = formatAtSign(atsign);
     if (atsign == null) {
@@ -108,8 +112,8 @@ class OnboardingService {
       if (cramSecret != null) {
         _atClientPreference.privateKey = null;
       }
-      bool isAuthenticated = await atClientService.authenticate(atsign, _atClientPreference,
-          jsonData: jsonData, decryptKey: decryptKey, status: status);
+      bool isAuthenticated =
+          await atClientService.authenticate(atsign, _atClientPreference, jsonData: jsonData, decryptKey: decryptKey, status: status);
       if (isAuthenticated) {
         _atsign = atsign;
         atClientServiceMap.putIfAbsent(_atsign, () => atClientService);
@@ -158,7 +162,7 @@ class OnboardingService {
     return atsign;
   }
 
-  Future<bool> isExistingAtsign(String? atsign)  async {
+  Future<bool> isExistingAtsign(String? atsign) async {
     if (atsign == null) {
       return false;
     }
