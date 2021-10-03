@@ -158,7 +158,7 @@ class OnboardingService {
     return atsign;
   }
 
-  Future<bool> isExistingAtsign(String? atsign) async {
+  Future<bool> isExistingAtsign(String? atsign)  async {
     if (atsign == null) {
       return false;
     }

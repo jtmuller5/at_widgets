@@ -571,6 +571,7 @@ class _PairAtsignWidgetState extends State<PairAtsignWidget> {
     });
     bool? isExist = await OnboardingService.getInstance().isExistingAtsign(atsign).catchError((dynamic error) async {
       await _showAlertDialog(error);
+      return false;
     });
     AtSignStatus? atsignStatus = await OnboardingService.getInstance().checkAtsignStatus(atsign: atsign);
     _pairingAtsign = OnboardingService.getInstance().formatAtSign(atsign);
